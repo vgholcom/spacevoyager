@@ -173,6 +173,8 @@ void SpaceVoyage::gatherSupplies( void )
 void SpaceVoyage::gatherCrew( void )
 {
     bool choice;
+    int crewCount = 0;
+    int maxCrew = 3;
     
     // print crew descriptions
     std::cout << std::fixed << std::setprecision(2) << "You can choose three crew members to join you on your journey. Avaliable crew includes: " << std::endl;
@@ -183,10 +185,19 @@ void SpaceVoyage::gatherCrew( void )
     }
 
     std::cout << "Now its time to choose your crew." << std::endl;
-    for (Crew* crewPtr : crewVector) {
-        crewPtr->chooseIntro(); // output supply
-        std::cin >> choice;
-        crewPtr->setPresent();
+    while ( crewCount < (maxCrew - 1) )
+    {
+        for (Crew* crewPtr : crewVector) {
+            if ( !crewPtr->isPresent() )
+            {
+                crewPtr->chooseIntro(); // output supply
+                std::cin >> choice;
+                crewPtr->setPresent(choice);
+                
+                crewCount = crewCount + choice;
+                std::cout << "You have " << maxCrew - crewCount << " crew members left to choose." << std::endl;
+            }
+        }
     }
 }
 
@@ -197,7 +208,13 @@ void SpaceVoyage::printStatus(int itrs)
     std::cout << "You have traveled " << distanceTraveled << " lightyears out of " << totalDistance << ". You are " << (distanceTraveled / totalDistance) * 100.0 << "% completed with your jouney. " << std::endl;
     std::cout << "Your health is currently at " << currentHealth << "% and your hunger is at " << currentHunger << "%. " << std::endl;
     std::cout << "You have $" << std::fixed << std::setprecision(2) << budget << "." << std::endl;
-    
+    std::cout << "Your crew consists of: ";
+    for (Crew* crewPtr : crewVector) {
+        if ( crewPtr->isPresent() )
+        {
+            crewPtr->printCrewName();
+        }
+    }
     std::cout << "Your inventory consists of:\nItem:\t\tQuantity:" << std::endl;
     for (Supplies* supplyPtr : suppliesVector) {
         supplyPtr->printItemName();

@@ -19,3 +19,15 @@ void Doctor::getInfo()
 {
     std::cout << getCrewName() << " " << getCrewDescription() << std::endl;
 }
+
+
+void Doctor::chooseIntro()
+{
+    std::cout << "Would you like to bring the " << getCrewName() << " on your jouney? 1 for yes, 0 for no." << std::endl;
+}
+
+
+void Doctor::printCrewName()
+{
+    std::cout << getCrewName() << " ";
+}

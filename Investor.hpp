@@ -18,6 +18,7 @@ public:
     virtual ~Investor() = default; // virtual destructor
     virtual void getInfo() override; // print crew info
     virtual void chooseIntro() override;
+    virtual void printCrewName() override;
 
     
 private:

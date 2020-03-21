@@ -18,6 +18,7 @@ public:
     virtual ~Scientist() = default; // virtual destructor
     virtual void getInfo() override; // print crew info
     virtual void chooseIntro() override;
+    virtual void printCrewName() override;
 
 private:
     std::string getCrewName() { return crewName; }

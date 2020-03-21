@@ -13,3 +13,13 @@ Crew::Crew()
 {
     //
 }
+
+void Crew::setPresent(bool value)
+{
+    present = value;
+}
+
+bool Crew::isPresent( void )
+{
+    return present;
+}

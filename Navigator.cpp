@@ -25,5 +25,11 @@ void Navigator::getInfo()
 
 void Navigator::chooseIntro()
 {
-    std::cout << "Would you like to bring the " << getSupplyName() << " on your jouney? 1 for yes, 0 for no." << std::endl;
+    std::cout << "Would you like to bring the " << getCrewName() << " on your jouney? 1 for yes, 0 for no." << std::endl;
+}
+
+
+void Navigator::printCrewName()
+{
+    std::cout << getCrewName() << " ";
 }

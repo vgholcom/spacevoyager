@@ -19,6 +19,7 @@ public:
     
     virtual void getInfo() override; // print crew info
     virtual void chooseIntro() override;
+    virtual void printCrewName() override;
 
 private:
     std::string getCrewName() { return crewName; }
