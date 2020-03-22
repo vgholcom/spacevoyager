@@ -20,6 +20,7 @@ public:
     virtual void getInfo() override; // print crew info
     virtual void chooseIntro() override;
     virtual void printCrewName() override;
+    int getAdvantage();
 
 private:
     std::string getCrewName() { return crewName; }
@@ -27,6 +28,9 @@ private:
     
     std::string crewName{"Mechanic"};
     std::string crewDescription{"Gives you a lower probability of breaking down. Requires less parts to fix the ship."};
+    
+    // advantage factor for having this crew member
+    int advantage{2};
 };
 
 #endif /* Mechanic_hpp */

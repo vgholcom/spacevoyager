@@ -17,13 +17,13 @@ Investor::Investor()
 
 void Investor::getInfo()
 {
-    std::cout << getCrewName() << " " << getCrewDescription() << std::endl;
+    std::cout << getCrewName() << "\t\t" << getCrewDescription() << std::endl;
 }
 
 
 void Investor::chooseIntro()
 {
-    std::cout << "Would you like to bring the " << getCrewName() << " on your jouney? 1 for yes, 0 for no." << std::endl;
+    std::cout << "Would you like to bring the " << getCrewName() << " on your jouney?" << std::endl;
 }
 
 

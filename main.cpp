@@ -1,39 +1,35 @@
-// Fig. 12.19: fig12_19.cpp
-// Demonstrating downcasting and runtime type information.
-// NOTE: You may need to enable RTTI on your compiler
-// before you can compile this application.
+// Victoria Tenney
+// CIS 554-M401 Object Oriented Programming in C++
+// Syracuse University
+// Final Project
+// 3/24/20
+// main.cpp
+// This is a text-based game based on getting a space traveler from one planet to the next.
+
 #include <iostream>
-#include <iomanip>
-#include <vector>
-#include <typeinfo>
-/*
-#include "Employee.hpp"
-#include "SalariedEmployee.hpp"
-#include "CommissionEmployee.hpp"
-#include "BasePlusCommissionEmployee.hpp"
-*/
+
 #include "SpaceVoyage.hpp"
-//#include "Supplies.hpp"
-//#include "Spaceship.hpp"
-//#include "BlasterBolts.hpp"
-//#include "Medicine.hpp"
-//#include "Fuel.hpp"
-//#include "Parts.hpp"
 
 int main() {
     
+    // variable to keep playing
     int continuePlaying = 1;
 
+    // initialize game with difficulty = medium
     SpaceVoyage spacevoyage(2);
     
-    // start game
-    if ( continuePlaying == 1 )
+    // while user wants to continue playing
+    while ( continuePlaying == 1 )
     {
+        // start game
         spacevoyage.startGame();
+        
+        // ask user to play again and get response
         std::cout << "Would you like to play again? 1 to play again, 0 to stop." << std::endl;
         std::cin >> continuePlaying;
     }
     
+    // program is over
     std::cout << "Thanks for playing!" << std::endl;
     
 }

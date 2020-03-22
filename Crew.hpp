@@ -21,11 +21,13 @@ public:
     virtual void getInfo( void ) = 0; // pure virtual
     virtual void chooseIntro( void ) = 0;
     virtual void printCrewName( void ) = 0;
+    //virtual int getAdvantage( void ) = 0;
+
 
     void setPresent( bool value );
     bool isPresent( void );
 private:
-    bool present;
+    bool present{0};
 };
 
 

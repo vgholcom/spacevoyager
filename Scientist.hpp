@@ -19,6 +19,8 @@ public:
     virtual void getInfo() override; // print crew info
     virtual void chooseIntro() override;
     virtual void printCrewName() override;
+    int getAdvantage();
+
 
 private:
     std::string getCrewName() { return crewName; }
@@ -26,5 +28,7 @@ private:
     
     std::string crewName{"Scientist"};
     std::string crewDescription{"Has a higher probability of mining when traveling through an ateroid belt."};
+
+    double advantage{2.0};
 };
 #endif /* Scientist_hpp */

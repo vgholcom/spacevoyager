@@ -17,17 +17,23 @@ Mechanic::Mechanic()
 
 void Mechanic::getInfo()
 {
-    std::cout << getCrewName() << " " << getCrewDescription() << std::endl;
+    std::cout << getCrewName() << "\t\t" << getCrewDescription() << std::endl;
 }
 
 
 void Mechanic::chooseIntro()
 {
-    std::cout << "Would you like to bring the " << getCrewName() << " on your jouney? 1 for yes, 0 for no." << std::endl;
+    std::cout << "Would you like to bring the " << getCrewName() << " on your jouney?" << std::endl;
 }
 
 
 void Mechanic::printCrewName()
 {
     std::cout << getCrewName() << " ";
+}
+
+
+int Mechanic::getAdvantage()
+{
+    return advantage;
 }

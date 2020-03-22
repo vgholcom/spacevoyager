@@ -1,10 +1,10 @@
-//
-//  SpaceVoyage.hpp
-//  SpaceVoyage
-//
-//  Created by Tori Tenney on 3/10/20.
-//  Copyright © 2020 Tori Tenney. All rights reserved.
-//
+// Victoria Tenney
+// CIS 554-M401 Object Oriented Programming in C++
+// Syracuse University
+// Final Project
+// 3/24/20
+// SpaceVoyage.hpp
+// This is a text-based game based on getting a space traveler from one planet to the next.
 
 #ifndef SpaceVoyage_hpp
 #define SpaceVoyage_hpp
@@ -34,50 +34,87 @@ public:
     // constructor
     SpaceVoyage();
     
+    // constructor with input
     SpaceVoyage( int difficulty );
     
     // destructor
     ~SpaceVoyage();
     
+    // start game
     void startGame( void );
     
 private:
     
+    /*****************
+     *
+     *   functions
+     *
+     *****************/
+    
+    // initialize game and game variables
     void initializeVoyage( int difficulty );
     
+    // gather initial supplies for jouney
     void gatherSupplies( void );
+    
+    // gather crew for jouney
     void gatherCrew( void );
 
-    void newIteration();
+    // operations to run at the begining of each iteration
+    void newIteration( void );
     
+    // print current game status
     void printStatus(int itrs);
+    
+    // continue jouney
+    void continueMoving( void );
 
+    // check if reached a planet to stop at
+    void checkPlanet( void );
     
-    void checkPlanet();
-    void pitstop();
-    void huntSpaceBuffalo();
-    void applyMedicine();
-    void eat();
-    void repairShip();
-    void continueMoving();
-    bool checkWin();
-    bool checkAlive();
+    // check if traveled through an asteroid belt
+    void asteroidBelt( void );
     
-    int generateRandom(int min, int max);
+    // take a rest
+    void pitstop( void );
     
-    double budget;
-    double defaultBudget{500.0};
+    // hunt for food
+    void huntSpaceBuffalo( void );
     
-    int numSupplies{5};
-    int numCrew{5};
+    // heal / apply medicine
+    void applyMedicine( void );
     
+    // eat
+    void eat( void );
+    
+    // repair damaged ship
+    void repairShip( void );
+    
+    // check if win condition is met
+    bool checkWin( void );
+    
+    // check if user is still alive
+    bool checkAlive( void );
+    
+    // generate a random number between min and max
+    double generateRandom(int min, int max);
+    
+    // generate a random number beween 0 and 1
+    double generateRandomZeroOne( void );
+    
+    
+    /*****************
+     *
+     *   variables
+     *
+     *****************/
+
     // supplies
     Spaceship spaceship;
     BlasterBolts blasterbolts;
     Medicine medicine;
     Fuel fuel;
     Parts parts;
-    
     std::vector<Supplies*> suppliesVector;
     
     // crew
@@ -85,24 +122,29 @@ private:
     Mechanic mechanic;
     Doctor doctor;
     Investor investor;
-    Scientist scientist; 
+    Scientist scientist;
     std::vector<Crew*> crewVector;
     
+    // budget
+    double defaultBudget{500.0};
+    double budget;
+    
+    // travel information
     double totalDistance{6000.0};
     double distanceTraveled{0.0};
     double numberOfCities{6};
     double distanceBetweenCities;
+    int planetsPast{0};
     
     // vitals
     double currentHealth{100.0};
     double currentHunger{100.0};
-    double currentShipDamage{100.0};
+    double currentShipDamage{0.0};
     bool shipDown{0};
     
     // extra inventory
     double currentFoodLevel{0.0};
     double currentSaleMaterial{0.0};
-
 
 };
 

@@ -25,12 +25,12 @@ void Supplies::printQuantity()
     std::cout << supplyQuantity << std::endl;
 }
 
-void Supplies::changeQuantity(int amount)
+void Supplies::changeQuantity(double amount)
 {
     supplyQuantity = supplyQuantity + amount;
 }
 
-int Supplies::checkQuantity()
+double Supplies::checkQuantity()
 {
     return supplyQuantity;
 }

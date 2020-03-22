@@ -19,7 +19,7 @@ Medicine::Medicine()
 
 void Medicine::getInfo()
 {
-    std::cout << getSupplyName() << " $" << std::setprecision(2) << getSupplyPrice() << " " << getSupplyDescription() << std::endl;
+    std::cout << getSupplyName() << " ($" << std::setprecision(2) << getSupplyPrice() << ") - " << getSupplyDescription() << std::endl;
 }
 
 

@@ -20,7 +20,7 @@ Spaceship::Spaceship()
 
 void Spaceship::getInfo()
 {
-    std::cout << getSupplyName() << " " << getSupplyDescription() << std::endl;
+    std::cout << getSupplyName() << " - " << getSupplyDescription() << std::endl;
 }
 
 void Spaceship::printItemName()

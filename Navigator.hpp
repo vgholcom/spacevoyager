@@ -20,6 +20,7 @@ public:
     virtual void getInfo() override; // print crew info
     virtual void chooseIntro() override;
     virtual void printCrewName() override;
+    double getAdvantage();
 
 private:
     std::string getCrewName() { return crewName; }
@@ -27,6 +28,8 @@ private:
     
     std::string crewName{"Navigator"};
     std::string crewDescription{"Gives you a higher probability of traveling further."};
+    
+    double advantage = 0.10;
 };
 
 #endif /* Navigator_hpp */

@@ -28,14 +28,14 @@ public:
     virtual void printItemName( void ) = 0;
     virtual void purchaseIntro( void ) = 0;
     
-    int checkQuantity( void );
-    void changeQuantity(int amount);
+    double checkQuantity( void );
+    void changeQuantity(double amount);
 
     virtual void printQuantity( void );
     
 private:
 
-    int supplyQuantity{0};
+    double supplyQuantity{0};
     
 
 };

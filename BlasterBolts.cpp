@@ -1,15 +1,16 @@
-//
-//  BlasterBolts.cpp
-//  SpaceVoyage
-//
-//  Created by Tori Tenney on 3/10/20.
-//  Copyright © 2020 Tori Tenney. All rights reserved.
-//
+// Victoria Tenney
+// CIS 554-M401 Object Oriented Programming in C++
+// Syracuse University
+// Final Project
+// 3/24/20
+// BlasterBolts.cpp
+// This is a text-based game based on getting a space traveler from one planet to the next.
 
 #include <iomanip>
 #include <stdexcept>
 #include <sstream>
 #include "BlasterBolts.hpp"
+
 
 // constructor
 BlasterBolts::BlasterBolts()
@@ -20,7 +21,7 @@ BlasterBolts::BlasterBolts()
 
 void BlasterBolts::getInfo()
 {
-    std::cout << getSupplyName() << " $" << std::setprecision(2) << getSupplyPrice() << " " << getSupplyDescription() << std::endl;
+    std::cout << getSupplyName() << " ($" << std::setprecision(2) << getSupplyPrice() << ") - " << getSupplyDescription() << std::endl;
 }
 
 
