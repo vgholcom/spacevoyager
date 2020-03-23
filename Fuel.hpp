@@ -52,7 +52,7 @@ private:
     std::string supplyDescription{"Your spaceship requires fuel to operate."};
     
     // supply price
-    double      supplyPrice{10.0};
+    double      supplyPrice{5.0};
 
 };
 

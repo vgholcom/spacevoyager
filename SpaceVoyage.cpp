@@ -168,7 +168,7 @@ void SpaceVoyage::gatherSupplies( void )
 {
     
     // init vars
-    int number{0};      // user input
+    double number{0.0};      // user input
     double spent{0.0};  // amount spent
     
     // print descriptions
@@ -229,7 +229,7 @@ void SpaceVoyage::buyMoreSupplies( void )
 {
     
     // init vars
-    int number{0};      // user input
+    double number{0.0};      // user input
     double spent{0.0};  // amount spent
     
     // print descriptions
@@ -653,18 +653,18 @@ void SpaceVoyage::continueMoving( void )
 {
     
     // variables
-    double maxDistanceDelta{600.0};     // total possible distance
-    double lightyearsPerGallon{90.0};   // number of lightyears / gallon
+    double maxDistanceDelta{500.0};     // total possible distance
+    double lightyearsPerGallon{150.0};  // number of lightyears / gallon
     double distance{0.0};               // distance traveled
     double availableFuel{0.0};          // avalible fuel
     double attemptedFuel{0.0};          // fuel attempting to use
-    
-    double distanceFromLastPlanetPlusDistance{0.0};       // distance from last plus distance
+    double distanceFromLastPlanetPlusDistance{0.0}; // distance from last plus distance
     double extraDistance{0.0};          // distace from visiting planet
     double distanceLeftToPlanet{0.0};   // distance to planet
     bool notEnoughFuel{0};              // not enough fuel
+    
     // calculate distance = f(damage, navigator)
-    distance = maxDistanceDelta * ( 1 + navigator.getAdvantage() * (int)navigator.isPresent() - (( 100 - currentShipDamage )/100) * 0.5 ) * generateRandomZeroOne();
+    distance = maxDistanceDelta * ( 1 + navigator.getAdvantage() * (int)navigator.isPresent() - (( 100 - currentShipDamage )/100) * 0.5 ) * (generateRandom(50, 100)/100);
     
     // check avaliable fuel
     availableFuel = (double)fuel.checkQuantity();
@@ -680,6 +680,7 @@ void SpaceVoyage::continueMoving( void )
         
         // check if there's enough fuel
         attemptedFuel = distanceLeftToPlanet / lightyearsPerGallon;
+
         if ( attemptedFuel < availableFuel )
         {
             // decrement fuel quantity
@@ -864,7 +865,7 @@ void SpaceVoyage::asteroidBelt( void )
 // check on planet
 void SpaceVoyage::checkPlanet( void )
 {
-    double materialCost{1.0};
+    double materialCost{2.0};
     double numSell{0.0};
 
     // sell material
@@ -877,6 +878,7 @@ void SpaceVoyage::checkPlanet( void )
         {
             materialCost = investor.getAdvantage() * materialCost;
         }
+        
         std::cout << "Your material is worth " << materialCost << " per item. How much would you like to sell?";
 
         // get user response
@@ -887,6 +889,7 @@ void SpaceVoyage::checkPlanet( void )
             numSell = currentSaleMaterial;
         }
         
+        currentSaleMaterial = currentSaleMaterial - numSell;
         budget = budget + numSell*materialCost;
     }
     

@@ -49,7 +49,7 @@ private:
     std::string supplyName{"Blaster Bolts"};
     
     // supply description
-    std::string supplyDescription{"Laser ammonition used for hunting space buffalo."};
+    std::string supplyDescription{"Laser ammunition used for hunting space buffalo."};
     
     // supply price
     double      supplyPrice{5.0};

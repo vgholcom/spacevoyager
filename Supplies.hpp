@@ -44,7 +44,7 @@ public:
     virtual bool checkIfSpaceship( void );
 
     // set quantity
-    void buySupply(int number);
+    void buySupply(double number);
     
     // check quantity
     double checkQuantity( void );

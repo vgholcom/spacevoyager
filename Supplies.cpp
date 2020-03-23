@@ -17,7 +17,7 @@ Supplies::Supplies()
 
 
 // set supply quantity
-void Supplies::buySupply(int number)
+void Supplies::buySupply(double number)
 {
     
     supplyQuantity = number;
