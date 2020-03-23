@@ -1,39 +1,63 @@
-//
-//  Spaceship.hpp
-//  SpaceVoyage
-//
-//  Created by Tori Tenney on 3/10/20.
-//  Copyright © 2020 Tori Tenney. All rights reserved.
-//
+// Victoria Tenney
+// CIS 554-M401 Object Oriented Programming in C++
+// Syracuse University
+// Final Project
+// 3/24/20
+// Spaceship.hpp
+// This is a text-based game based on getting a space traveler from one planet to the next.
 
 #ifndef Spaceship_hpp
 #define Spaceship_hpp
 
 #include <stdio.h>
 #include "Supplies.hpp"
-#include <string> // C++ standard string class
+#include <string>
 
+
+// spaceship class, inheritance from supplies class
 class Spaceship : public Supplies {
 public:
-    Spaceship();
-    virtual ~Spaceship() = default; // virtual destructor
     
-    virtual void getInfo() override; // print supply info
+    // constructor
+    Spaceship( void );
+    
+    // virtual destructor
+    virtual ~Spaceship( void ) = default;
+    
+    // print supply info
+    virtual void getInfo( void ) override;
 
-    virtual void printItemName() override;
-    virtual void purchaseIntro() override;    
-    virtual void printQuantity() override;
+    // print item name
+    virtual void printItemName( void ) override;
     
-    virtual double getSupplyPrice() override { return supplyPrice; }
+    // purchase intro
+    virtual void purchaseIntro( void ) override;
+    
+    // print quantity
+    virtual void printQuantity( void ) override;
+    
+    // get supply price
+    virtual double getSupplyPrice( void ) override;
+
+    // check if spaceship
+    virtual bool checkIfSpaceship( void ) override;
 
 
 private:
     
-    std::string getSupplyName() { return supplyName; }
-    std::string getSupplyDescription() { return supplyDescription; }
+    // supply name
+    std::string getSupplyName( void );
     
+    // supply description
+    std::string getSupplyDescription( void );
+    
+    // supply name
     std::string supplyName{"Spaceship"};
+    
+    // supply description
     std::string supplyDescription{"You'll need a spaceship for your journey. You get to choose how much you would like to spend. The cost is inversely proportional to the chance of breaking down."};
+    
+    // supply price
     double      supplyPrice{1.0};
 };
 

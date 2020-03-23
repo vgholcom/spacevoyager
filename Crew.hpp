@@ -1,10 +1,10 @@
-//
-//  Crew.hpp
-//  SpaceVoyage
-//
-//  Created by Tori Tenney on 3/10/20.
-//  Copyright © 2020 Tori Tenney. All rights reserved.
-//
+// Victoria Tenney
+// CIS 554-M401 Object Oriented Programming in C++
+// Syracuse University
+// Final Project
+// 3/24/20
+// Crew.hpp
+// This is a text-based game based on getting a space traveler from one planet to the next.
 
 #ifndef Crew_hpp
 #define Crew_hpp
@@ -14,20 +14,39 @@
 #include <iomanip>
 #include <string>
 
+// crew class
 class Crew {
 public:
+    
+    // constructor
     Crew();
-    virtual ~Crew( void ) = default; // compiler generates virtual destructor
-    virtual void getInfo( void ) = 0; // pure virtual
+    
+    // compiler generates virtual destructor
+    virtual ~Crew( void ) = default;
+    
+    // pure virtual get info
+    virtual void getInfo( void ) = 0;
+    
+    // pure virtual choose intro
     virtual void chooseIntro( void ) = 0;
+    
+    // pure virtual print cname
     virtual void printCrewName( void ) = 0;
+    
+    // pure virtuaul get crew advantage
     //virtual int getAdvantage( void ) = 0;
 
-
+    // set present value
     void setPresent( bool value );
+    
+    // return present value
     bool isPresent( void );
+    
 private:
+    
+    // member present
     bool present{0};
+    
 };
 
 

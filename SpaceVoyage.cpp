@@ -92,7 +92,7 @@ void SpaceVoyage::initializeVoyage( int difficulty )
     crewVector.push_back(&scientist);
     
     // calculate the distance between cities
-    distanceBetweenCities = totalDistance / numberOfCities;
+    distanceBetweenPlanets = totalDistance / numberOfPlanets;
     
 }
 
@@ -198,7 +198,7 @@ void SpaceVoyage::gatherSupplies( void )
             spent = number * supplyPtr->getSupplyPrice();
             
             // check if user can afford
-            if ( budget - spent > 0 )
+            if ( budget - spent >= 0 )
             {
                 // add +N to supplyQuantity
                 supplyPtr->buySupply( number );
@@ -215,6 +215,71 @@ void SpaceVoyage::gatherSupplies( void )
             std::cout << "You have $" << budget << " left to spend." <<std::endl;
             
         } else {
+            
+            // user doesn't have enough money to buy any more supplies
+            std::cout << "You have spent all of your money." << std::endl;
+            
+        }
+    }
+}
+
+
+// gather initial supplies
+void SpaceVoyage::buyMoreSupplies( void )
+{
+    
+    // init vars
+    int number{0};      // user input
+    double spent{0.0};  // amount spent
+    
+    // print descriptions
+    std::cout << std::fixed << std::setprecision(2) << "You have $" << budget << " to spend on supplies. Avaliable supplies include: " << std::endl;
+    
+    // polymorphically process each element in vector to show supply info
+    for (Supplies* supplyPtr : suppliesVector)
+    {
+        // if not spaceship
+        if (!supplyPtr->checkIfSpaceship())
+        {
+            // output supply info
+            supplyPtr->getInfo();
+        }
+    }
+    
+    // loop through supplies, get amounts from user
+    std::cout << "Now it's time to buy your supplies." << std::endl;
+    for (Supplies* supplyPtr : suppliesVector) {
+        
+        // if budget is greater than 0 and not spaceship
+        if ( budget > 0.0 && !supplyPtr->checkIfSpaceship())
+        {
+            // print item name and cost
+            supplyPtr->purchaseIntro();
+            
+            // get quanity from user
+            std::cin >> number;
+            
+            // calcluate amount to be spent
+            spent = number * supplyPtr->getSupplyPrice();
+            
+            // check if user can afford
+            if ( budget - spent >= 0 )
+            {
+                // add +N to supplyQuantity
+                supplyPtr->changeQuantity( number );
+                
+                // reduce from budget
+                budget = budget - spent;
+                
+            } else {
+                // not enough money
+                std::cout << "You do not have enough money to buy this supply." << std::endl;
+            }
+            
+            // print updated budget
+            std::cout << "You have $" << budget << " left to spend." <<std::endl;
+            
+        } else if (budget <= 0.0) {
             
             // user doesn't have enough money to buy any more supplies
             std::cout << "You have spent all of your money." << std::endl;
@@ -594,57 +659,122 @@ void SpaceVoyage::continueMoving( void )
     double availableFuel{0.0};          // avalible fuel
     double attemptedFuel{0.0};          // fuel attempting to use
     
+    double distanceFromLastPlanetPlusDistance{0.0};       // distance from last plus distance
+    double extraDistance{0.0};          // distace from visiting planet
+    double distanceLeftToPlanet{0.0};   // distance to planet
+    bool notEnoughFuel{0};              // not enough fuel
     // calculate distance = f(damage, navigator)
     distance = maxDistanceDelta * ( 1 + navigator.getAdvantage() * (int)navigator.isPresent() - (( 100 - currentShipDamage )/100) * 0.5 ) * generateRandomZeroOne();
     
     // check avaliable fuel
     availableFuel = (double)fuel.checkQuantity();
     
-    // calculate attempted fuel
-    attemptedFuel = distance/lightyearsPerGallon;
+    distanceFromLastPlanetPlusDistance = distanceFromLastPlanet + distance;
     
-    // check if we run out of fuel
-    if ( attemptedFuel < availableFuel )
+    // check if we hit a planet
+    if (distanceFromLastPlanetPlusDistance >= distanceBetweenPlanets)
     {
+        // visiting planets
+        extraDistance = distanceFromLastPlanetPlusDistance - distanceBetweenPlanets;
+        distanceLeftToPlanet = distance - extraDistance;
         
-        // decrement fuel quantity
-        fuel.changeQuantity(-attemptedFuel);
-        
-        // increase progress
-        distanceTraveled += distance;
-        
-        // status update to user
-        std::cout << "You have traveled " << distance << " lightyears today. Your total jouney has been " << distanceTraveled << " lightyears." << std::endl;
-        
-    } else {
-        
-        // not enough fuel for full distance, go as far as possible
-        // calculate distance
-        distance = availableFuel * lightyearsPerGallon;
-        
-        // decrement fuel quantity
-        fuel.changeQuantity(-availableFuel);
-        
-        // increase progress
-        distanceTraveled += distance;
-        
-        // if not at goal planet, and out of fuel shipDown, so game over
-        if ( distanceTraveled < totalDistance )
+        // check if there's enough fuel
+        attemptedFuel = distanceLeftToPlanet / lightyearsPerGallon;
+        if ( attemptedFuel < availableFuel )
         {
-            shipDown = 1;
+            // decrement fuel quantity
+            fuel.changeQuantity(-attemptedFuel);
+            
+            // increase progress
+            distanceTraveled += distanceLeftToPlanet;
+            
+            // status update to user
+            std::cout << "You have traveled " << distanceLeftToPlanet << " lightyears and have reached a planet. You may stop here to buy and sell materials." << std::endl;
+            
+            // go to planet
+            checkPlanet();
+            
+            // set new distance to extra distance to keep going
+            distance = extraDistance;
+            distanceFromLastPlanet = 0.0;
+            
+        } else {
+            // not enough fuel...
+            notEnoughFuel = 1;
+            
+            // not enough fuel to planet, go as far as possible
+            // calculate distance
+            distance = availableFuel * lightyearsPerGallon;
+            
+            // decrement fuel quantity
+            fuel.changeQuantity(-availableFuel);
+            
+            // increase progress
+            distanceTraveled += distance;
+            
+            // if not at goal planet, and out of fuel shipDown, so game over
+            if ( distanceTraveled < totalDistance )
+            {
+                shipDown = 1;
+            }
+            
+            // status update to user
+            std::cout << "You dont have enough fuel, you were only able to travel " << distance << " lightyears." << std::endl;
         }
+    
+    } else {
+        distanceFromLastPlanet = distanceFromLastPlanet + distance;
+    }
+    
+    
+    if (!notEnoughFuel)
+    {
+        // check avaliable fuel
+        availableFuel = (double)fuel.checkQuantity();
         
-        // status update to user
-        std::cout << "You dont have enough fuel, you were only able to travel " << distance << " lightyears." << std::endl;
+        // calculate attempted fuel
+        attemptedFuel = distance/lightyearsPerGallon;
         
+        // check if we run out of fuel
+        if ( attemptedFuel < availableFuel )
+        {
+            
+            // decrement fuel quantity
+            fuel.changeQuantity(-attemptedFuel);
+            
+            // increase progress
+            distanceTraveled += distance;
+            
+            // status update to user
+            std::cout << "You have traveled " << distance << " lightyears today. Your total jouney has been " << distanceTraveled << " lightyears." << std::endl;
+            
+        } else {
+            
+            // not enough fuel for full distance, go as far as possible
+            // calculate distance
+            distance = availableFuel * lightyearsPerGallon;
+            
+            // decrement fuel quantity
+            fuel.changeQuantity(-availableFuel);
+            
+            // increase progress
+            distanceTraveled += distance;
+            
+            // if not at goal planet, and out of fuel shipDown, so game over
+            if ( distanceTraveled < totalDistance )
+            {
+                shipDown = 1;
+            }
+            
+            // status update to user
+            std::cout << "You dont have enough fuel, you were only able to travel " << distance << " lightyears." << std::endl;
+            
+        }
     }
 
     // if past through an astroid belt
     asteroidBelt();
 
-    // if planet...
-    // TODO
-    
 }
 
 
@@ -734,9 +864,34 @@ void SpaceVoyage::asteroidBelt( void )
 // check on planet
 void SpaceVoyage::checkPlanet( void )
 {
-    // if at 1/6 planets
-    //      can buy / sell
-    // check if we're near a planet
+    double materialCost{1.0};
+    double numSell{0.0};
+
+    // sell material
+    if (currentSaleMaterial > 0)
+    {
+        std::cout << "You have " << currentSaleMaterial << " material to sell. ";
+        
+        // check for investor
+        if ( investor.isPresent() )
+        {
+            materialCost = investor.getAdvantage() * materialCost;
+        }
+        std::cout << "Your material is worth " << materialCost << " per item. How much would you like to sell?";
+
+        // get user response
+        std::cin >> numSell;
+        
+        if ( numSell > currentSaleMaterial ) {
+            std::cout << "You don't have that much material, selling all of it." << std::endl;
+            numSell = currentSaleMaterial;
+        }
+        
+        budget = budget + numSell*materialCost;
+    }
+    
+    // buy all supplies except spaceship
+    buyMoreSupplies();
 }
 
 

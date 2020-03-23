@@ -19,18 +19,55 @@ BlasterBolts::BlasterBolts()
 }
 
 
+// print supply info to console
 void BlasterBolts::getInfo()
 {
+    
     std::cout << getSupplyName() << " ($" << std::setprecision(2) << getSupplyPrice() << ") - " << getSupplyDescription() << std::endl;
+
 }
 
 
+// prints item name
 void BlasterBolts::printItemName()
 {
+
     std::cout << getSupplyName() << "\t\t";
+
 }
 
+
+// print intro to console
 void BlasterBolts::purchaseIntro()
 {
+
     std::cout << "How many " << getSupplyName() << " would you like to buy at $" << getSupplyPrice() <<"?" << std::endl;
+
+}
+
+
+// supply price
+double BlasterBolts::getSupplyPrice()
+{
+    
+    return supplyPrice;
+    
+}
+
+
+// supply name
+std::string BlasterBolts::getSupplyName()
+{
+    
+    return supplyName;
+    
+}
+
+
+// supply description
+std::string BlasterBolts::getSupplyDescription()
+{
+
+    return supplyDescription;
+
 }

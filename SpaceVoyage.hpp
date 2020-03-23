@@ -57,6 +57,9 @@ private:
     // gather initial supplies for jouney
     void gatherSupplies( void );
     
+    // buy more supplies
+    void buyMoreSupplies( void );
+    
     // gather crew for jouney
     void gatherCrew( void );
 
@@ -132,9 +135,10 @@ private:
     // travel information
     double totalDistance{6000.0};
     double distanceTraveled{0.0};
-    double numberOfCities{6};
-    double distanceBetweenCities;
+    double numberOfPlanets{6};
+    double distanceBetweenPlanets;
     int planetsPast{0};
+    double distanceFromLastPlanet{0.0};
     
     // vitals
     double currentHealth{100.0};
